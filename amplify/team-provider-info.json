@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-ichat-dev-192757-authRole",
+            "UnauthRoleArn": "arn:aws:iam::466793207086:role/amplify-ichat-dev-192757-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::466793207086:role/amplify-ichat-dev-192757-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "amplify-ichat-dev-192757-deployment",
+            "UnauthRoleName": "amplify-ichat-dev-192757-unauthRole",
+            "StackName": "amplify-ichat-dev-192757",
+            "StackId": "arn:aws:cloudformation:eu-central-1:466793207086:stack/amplify-ichat-dev-192757/bb346b70-8711-11ea-9ea9-0a24e2904074",
+            "AmplifyAppId": "d2wxlhajxi4d57"
+        },
+        "categories": {
+            "auth": {
+                "ichatf447662f": {}
+            }
+        }
+    }
+}

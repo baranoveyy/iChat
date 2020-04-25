@@ -1,0 +1,9 @@
+{
+	"auth": {
+		"ichatf447662f": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}
