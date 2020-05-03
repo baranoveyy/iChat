@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { ActionCreator as ReduxActionCreator } from 'redux';
 
 const SILENT_ACTIONS = [

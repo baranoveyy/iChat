@@ -17,7 +17,6 @@ const Container = styled(View)`
 `;
 
 const Profile = ({history}) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
   const {cognitoUser} = useSelector((state: RootState) => state.auth)
   window.console.log('cognitoUser', cognitoUser);

@@ -33,7 +33,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "react/no-deprecated": "off",
     "react/prop-types": "off",

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Text, View, ScrollView} from 'react-native';
 import styled from 'styled-components';
@@ -35,6 +35,7 @@ const MessagesContainer = styled(ScrollView)`
 `;
 
 const MessageRowView = styled(View)`
+  padding: 2px 4px;
   width: 100%;
   height: 40px;
   flex-direction: row;
@@ -43,7 +44,7 @@ const MessageRowView = styled(View)`
 `;
 
 const MessageInnerView = styled(View)`
-  border: 2px;
+  border: 1px;
   border-radius: 5px;
   padding: 5px;
   width: 50%;
@@ -63,11 +64,11 @@ const MessageInputView = styled(View)`
 const MessageInput = styled(TextField)``;
 
 const Chat = ({location}) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
   const {currentUser} = useSelector((state: RootState) => state.auth);
   const [conversation, setConversation] = useState<any>();
   const [message, setMessage] = useState('');
+  const ref = useRef<ScrollView>();
 
   useEffect(() => {
     // Storage.get('123456.txt')
@@ -86,6 +87,7 @@ const Chat = ({location}) => {
     window.console.log('conversation', conversation);
     window.console.log('location', location);
     window.console.log('iddddd', location?.state.convoLink.conversation.id);
+    ref.current?.scrollToEnd();
 
     const next = (nextOnCreateMessage) => {
       window.console.log('next', nextOnCreateMessage);
@@ -98,6 +100,8 @@ const Chat = ({location}) => {
           ]
         }
       });
+
+      ref.current?.scrollToEnd();
     };
 
     const subscription = API.graphql(
@@ -134,20 +138,25 @@ const Chat = ({location}) => {
     <Screen navbarTitle={conversation?.name} disablePadding>
       <Container>
         <ScrollContainer>
-          <MessagesContainer scrollEnable={false}>
-            {conversation?.messages.items.slice().reverse().map((message, index) => {
-              const isCurrentUserMessage = message.authorId === currentUser.id;
+          <MessagesContainer ref={ref}>
+            {conversation?.messages.items
+              .slice()
+              .reverse()
+              .map((message, index) => {
+                const isCurrentUserMessage =
+                  message.authorId === currentUser.id;
 
-              return (
-                <MessageRowView
-                  key={index}
-                  isCurrentUserMessage={isCurrentUserMessage}>
-                  <MessageInnerView isCurrentUserMessage={isCurrentUserMessage}>
-                    <Message>{message.content}</Message>
-                  </MessageInnerView>
-                </MessageRowView>
-              );
-            })}
+                return (
+                  <MessageRowView
+                    key={index}
+                    isCurrentUserMessage={isCurrentUserMessage}>
+                    <MessageInnerView
+                      isCurrentUserMessage={isCurrentUserMessage}>
+                      <Message>{message.content}</Message>
+                    </MessageInnerView>
+                  </MessageRowView>
+                );
+              })}
           </MessagesContainer>
         </ScrollContainer>
         <MessageInputView>

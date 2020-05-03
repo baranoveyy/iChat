@@ -2,7 +2,6 @@ import React from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components';
 
-import { font, FONT_WEIGHTS, FONT_SIZE } from '../common/font';
 import { color } from '../common/constants';
 
 import TranslatedTextContainer from './translated-text/TranslatedTextContainer';
@@ -18,7 +17,7 @@ const FieldRow = styled<{ width?: string, error }>(View)`
 
 const FieldTitle = styled(TranslatedTextContainer)`
 margin-bottom: 5px;
-  ${font('13px', FONT_WEIGHTS.BOLD)};
+  font-size: 13px;
   color: ${color.black};
   line-height: 15px;
 `;
@@ -26,7 +25,7 @@ margin-bottom: 5px;
 const ErrorMessage = styled(TranslatedTextContainer)`
   margin: 0px;
 
-  ${font(FONT_SIZE.TEN)};
+  font-size: 10px;
   color: ${color.scarlet};
   letter-spacing: 0.6px;
 `;

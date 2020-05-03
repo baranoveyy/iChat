@@ -5,7 +5,6 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import TranslatedTextContainer from '../translated-text/TranslatedTextContainer';
 
-import { font, FONT_WEIGHTS } from '../../common/font';
 import { BUTTON_TYPES, BUTTON_DELAY_TIME } from '../../common/constants';
 import { color } from '../../common/constants';
 
@@ -184,10 +183,10 @@ const StyledText = styled<{
   ${(props) => (props.styledTextFlexValue ? `flex: 1` : ``)};
   ${(props) =>
     props.buttonType === BUTTON_TYPES.FORM
-      ? font('13px')
+      ? 'font-size: 13px'
       : props.buttonType === BUTTON_TYPES.TEXT
-      ? font('13px', FONT_WEIGHTS.BOLD)
-      : font('15px', FONT_WEIGHTS.BOLD)}
+      ? 'font-size: 13px'
+      : 'font-size: 15px'}
 
   color: ${(props) => {
     let textColor;
@@ -366,7 +365,7 @@ class Button extends Component<ButtonProps, ButtonState> {
       <StyledLinearGradient
         start={{ x: 0, y: 0.5 }}
         end={{ x: 1.0, y: 1.0 }}
-        colors={[color.iChatPink, color.iChatOrange]}>
+        colors={[color.pink, color.orange]}>
         {button}
       </StyledLinearGradient>
     ) : (

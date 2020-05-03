@@ -4,7 +4,6 @@ import { Button } from 'native-base';
 import styled from 'styled-components';
 
 import {color} from '../../common/constants';
-import { font } from '../../common/font';
 
 import TranslatedTextContainer from '../translated-text/TranslatedTextContainer';
 
@@ -22,7 +21,7 @@ const ButtonText = styled<{ active?: boolean }>(TranslatedTextContainer)`
 
   letter-spacing: 0.5px;
   color: ${({active}) => (active ? color.oceanBlue : color.darkGrey)};
-  ${font('20px')};
+  font-size: 20px;
 `;
 
 const ActiveIndicator = styled(View)`

@@ -27,7 +27,6 @@ const ButtonContainer = styled(View)`
 
 const SignIn = (props) => {
   const { register, setValue, handleSubmit, errors, setError } = useForm();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
 
   const onSubmit = async (form) => {

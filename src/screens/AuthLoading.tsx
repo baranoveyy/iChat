@@ -7,7 +7,6 @@ import paths from '../routes/paths';
 import {getCurrentAuthenticatedUser} from '../store/actions/authActions';
 
 const AuthLoading = (props) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
 
   const checkAuthentication = () => {

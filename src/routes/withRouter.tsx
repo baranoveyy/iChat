@@ -13,8 +13,6 @@ const push = (pathname: string, state) => {
     hash: ''
   };
 
-  // window.console.log('location', location);
-
   if (Actions.currentScene === pathname) {
     return;
   } else if (state?.reset) {
@@ -32,8 +30,6 @@ const push = (pathname: string, state) => {
   }
 
   STACK.push(pathname);
-
-  // window.console.log('STACK', STACK);
 };
 
 const history = {

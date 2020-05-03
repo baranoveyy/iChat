@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Text, View} from 'react-native';
 import styled from 'styled-components';
@@ -14,7 +13,6 @@ import {
   createConversation,
   createConvoLink
 } from '../graphql/mutations';
-import {getConversations} from '../store/actions/awsActions';
 import paths from '../routes/paths';
 import { showLoading, hideLoading } from '../store/actions/commonActions';
 
@@ -59,7 +57,6 @@ const Users = ({history}) => {
 
             const onPress = async () => {
               window.console.log('sadasdasdasdas', members);
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               dispatch(showLoading());
               try {
                 const name = members.join(' and ');

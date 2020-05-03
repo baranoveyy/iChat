@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {ActionCreator, Action} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 

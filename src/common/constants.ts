@@ -29,16 +29,8 @@ export const color = {
 
   red: '#d0021b',
 
-  iChatPink: '#ed3269',
-  iChatOrange: '#f05f3e',
-
-  iChatLightGrey: '#7f8fa6',
-  iChatLightGrey2: '#f7f8fa',
-  iChatDarkGrey: '#7b8292',
-
-  iChatLightBlack: '#353b48',
-  iChatDarkBlack: '#20232a',
-  iChatDarkBlack2: '#2b2f3a'
+  pink: '#ed3269',
+  orange: '#f05f3e'
 };
 
 export const BUTTON_TYPES = {

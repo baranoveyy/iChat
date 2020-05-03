@@ -5,7 +5,6 @@ import { Button, Left, Right, Body } from 'native-base';
 import styled from 'styled-components';
 
 import {color} from '../../common/constants';
-import { font, FONT_WEIGHTS } from '../../common/font';
 
 import TranslatedTextContainer from '../translated-text/TranslatedTextContainer';
 
@@ -31,7 +30,7 @@ const StyledBody = styled(Body)`
 `;
 
 const NavbarTitle = styled(TranslatedTextContainer)`
-  ${font('13px', FONT_WEIGHTS.BOLD)};
+  font-size: 13px;
   color: ${color.darkGrey};
 `;
 

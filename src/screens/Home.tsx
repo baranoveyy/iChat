@@ -5,7 +5,11 @@ import styled from 'styled-components';
 
 import Screen from '../components/Screen';
 
-import {getUsers, createUserAction, setCurrentUser} from '../store/actions/authActions';
+import {
+  getUsers,
+  createUserAction,
+  setCurrentUser
+} from '../store/actions/authActions';
 import {RootState} from '../store/reducers/rootReducer';
 import {getConvoLinks, setConvoLinks} from '../store/actions/awsActions';
 import {API, graphqlOperation} from 'aws-amplify';
@@ -18,9 +22,10 @@ const Container = styled(View)`
 `;
 
 const Home = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
-  const {currentUser, cognitoUser, users} = useSelector((state: RootState) => state.auth);
+  const {currentUser, cognitoUser, users} = useSelector(
+    (state: RootState) => state.auth
+  );
   const {convoLinks} = useSelector((state: RootState) => state.aws);
 
   useEffect(() => {
@@ -47,31 +52,34 @@ const Home = () => {
   }, [cognitoUser, users]);
 
   useEffect(() => {
+    let subscription;
     if (currentUser) {
       if (!convoLinks) {
         window.console.log('getConvoLinks', convoLinks);
-        dispatch(getConvoLinks(currentUser.id))
+        dispatch(getConvoLinks(currentUser.id));
       }
 
       window.console.log('useEffect next currentUser', currentUser);
       const next = (nextOnCreateConvoLink) => {
         window.console.log('next', nextOnCreateConvoLink);
-        dispatch(setConvoLinks([
-          ...(convoLinks || []),
-          nextOnCreateConvoLink.value.data.onCreateConvoLink
-        ]));
+        dispatch(
+          setConvoLinks([
+            ...(convoLinks || []),
+            nextOnCreateConvoLink.value.data.onCreateConvoLink
+          ])
+        );
       };
 
-      const subscription = API.graphql(
+      subscription = API.graphql(
         graphqlOperation(onCreateConvoLink, {
           convoLinkUserId: currentUser.id
         })
       ).subscribe({
         next
       });
-
-      return () => subscription.unsubscribe();
     }
+
+    return () => subscription?.unsubscribe();
   }, [currentUser]);
 
   return (

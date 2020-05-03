@@ -14,7 +14,6 @@ import {showLoading, hideLoading} from '../store/actions/commonActions';
 const SignUp = ({history}) => {
   const {register, setValue, handleSubmit, errors, setError} = useForm();
   const [confirmSignUp, setConfirm] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
 
   const onSubmit = async (formData) => {
