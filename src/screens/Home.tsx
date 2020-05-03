@@ -1,16 +1,84 @@
-import React, { useEffect } from 'react';
-import { Text } from 'react-native';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Text, View} from 'react-native';
+import styled from 'styled-components';
 
 import Screen from '../components/Screen';
 
-const Home = ({ history }) => {
+import {getUsers, createUserAction, setCurrentUser} from '../store/actions/authActions';
+import {RootState} from '../store/reducers/rootReducer';
+import {getConvoLinks, setConvoLinks} from '../store/actions/awsActions';
+import {API, graphqlOperation} from 'aws-amplify';
+import {onCreateConvoLink} from '../graphql/subscriptions';
+
+const Container = styled(View)`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+`;
+
+const Home = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dispatch = useDispatch<any>();
+  const {currentUser, cognitoUser, users} = useSelector((state: RootState) => state.auth);
+  const {convoLinks} = useSelector((state: RootState) => state.aws);
+
   useEffect(() => {
-    // Storage.get('123456.txt')
+    if (!users) {
+      dispatch(getUsers());
+    }
   }, []);
 
+  useEffect(() => {
+    const arrow = async () => {
+      if (cognitoUser && users && !currentUser) {
+        const _currentUser = users.find(
+          (user) => user.username === cognitoUser.attributes.name
+        );
+        await dispatch(
+          _currentUser
+            ? setCurrentUser(_currentUser)
+            : createUserAction(cognitoUser.attributes.name)
+        );
+      }
+    };
+
+    arrow();
+  }, [cognitoUser, users]);
+
+  useEffect(() => {
+    if (currentUser) {
+      if (!convoLinks) {
+        window.console.log('getConvoLinks', convoLinks);
+        dispatch(getConvoLinks(currentUser.id))
+      }
+
+      window.console.log('useEffect next currentUser', currentUser);
+      const next = (nextOnCreateConvoLink) => {
+        window.console.log('next', nextOnCreateConvoLink);
+        dispatch(setConvoLinks([
+          ...(convoLinks || []),
+          nextOnCreateConvoLink.value.data.onCreateConvoLink
+        ]));
+      };
+
+      const subscription = API.graphql(
+        graphqlOperation(onCreateConvoLink, {
+          convoLinkUserId: currentUser.id
+        })
+      ).subscribe({
+        next
+      });
+
+      return () => subscription.unsubscribe();
+    }
+  }, [currentUser]);
+
   return (
-    <Screen navbarTitle="HOME" history={history} disablePadding>
-      <Text> Welcome Home :) </Text>
+    <Screen navbarTitle="HOME" disablePadding hideCustomNavbar>
+      <Container>
+        <Text> Welcome Home :) </Text>
+      </Container>
     </Screen>
   );
 };

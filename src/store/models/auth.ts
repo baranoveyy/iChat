@@ -5,7 +5,10 @@ export interface User {
 
 interface Auth {
   isLoggedIn?: boolean;
-  user?: User;
+  cognitoUser?;
+  currentUser?;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  users?: any[];
 }
 
 type AuthState = Readonly<Auth>;

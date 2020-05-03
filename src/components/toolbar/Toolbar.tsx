@@ -1,53 +1,44 @@
-import React from 'react';
-import { Footer, FooterTab } from 'native-base';
+import React, { Component } from 'react';
+import { Footer, FooterTab, Button } from 'native-base';
 import { Keyboard } from 'react-native';
 import styled from 'styled-components';
 import { MemoryHistory } from 'history';
 
 import {color} from '../../common/constants';
-import { hasNotch } from '../../common/DeviceSpecific';
-import withRouter from '../../routes/withRouter';
 
 import ToolbarItem from './ToolbarItem';
-
-import IconProducts from '../../assets/icons/iconsProductsBlack.png';
-import IconProductsActive from '../../assets/icons/iconsProductsBlue.png';
-
-interface ToolbarProps {
-  history: MemoryHistory;
-  selectedIndex: number;
-  prevSelectedIndex: number;
-  toolbarChangeSelectedIndex(index: number): void;
-  toolbarChangePrevSelectedIndex(index: number): void;
-  isAtHome?: boolean;
-}
-
-interface ToolbarState {
-  isProcessMenuOpen: boolean;
-  isMenuItemSelected: boolean;
-  keyboardOpen: boolean;
-}
+import withRouter from '../../routes/withRouter';
+import paths from '../../routes/paths';
 
 const FooterContainer = styled(Footer)`
   background-color: ${color.menuBlue};
-  border-top-width: 1;
+  border-top-width: 1px;
   border-top-color: ${color.menuBorderline};
 
-  padding-bottom: ${hasNotch ? '75px' : 0};
+  padding-bottom: 0;
 `;
 
 const FooterTabContainer = styled(FooterTab)`
   background-color: transparent;
   height: 49px;
+
+  & > ${Button} {
+    background-color: ${color.black};
+    border-right-width: 2px;
+    border-right-style: solid;
+    border-right-color: ${color.black};
+  }
 `;
 
-class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
+interface ToolbarState {
+  keyboardOpen: boolean;
+}
+
+class Toolbar extends Component<{ history: MemoryHistory}, ToolbarState> {
   keyboardDidShowListener;
   keyboardDidHideListener;
 
   state: ToolbarState = {
-    isProcessMenuOpen: false,
-    isMenuItemSelected: false,
     keyboardOpen: false
   };
 
@@ -77,32 +68,29 @@ class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
     );
   }
 
-  componentDidUpdate(prevProps: ToolbarProps) {
-    if (this.props.prevSelectedIndex && prevProps.prevSelectedIndex
-      && this.props.selectedIndex === this.props.prevSelectedIndex &&
-      this.state.isMenuItemSelected) {
-      this.setState({ isMenuItemSelected: false });
-    }
-  }
+  // componentDidUpdate(prevProps: ToolbarProps) {
+  //   if (this.props.prevSelectedIndex && prevProps.prevSelectedIndex
+  //     && this.props.selectedIndex === this.props.prevSelectedIndex &&
+  //     this.state.isMenuItemSelected) {
+  //     this.setState({ isMenuItemSelected: false });
+  //   }
+  // }
 
-  onRequestClose = () => {
-    this.setState({ isProcessMenuOpen: false });
-    this.props.toolbarChangePrevSelectedIndex(this.props.selectedIndex);
-    this.props.toolbarChangeSelectedIndex(this.props.prevSelectedIndex);
-  }
+  // handleMenuSelect = (path: string, index: number) => {
+  //   this.props.history.push(path, {isMenuPush: true});
+  //   this.props.toolbarChangePrevSelectedIndex(this.props.selectedIndex);
+  //   this.props.toolbarChangeSelectedIndex(index);
+  // }
 
-  handleMenuSelect = (path: string, index: number) => {
+  goToPath = (path) => () => {
     this.props.history.push(path, {isMenuPush: true});
-    this.props.toolbarChangePrevSelectedIndex(this.props.selectedIndex);
-    this.props.toolbarChangeSelectedIndex(index);
   }
 
-  renderToolbarItem = (label) => (
+  renderToolbarItem = (label, onPress) => (
     <ToolbarItem
       label={label}
-      icon={IconProducts}
-      activeIcon={IconProductsActive}
       active={false}
+      onPress={onPress}
     />
   )
 
@@ -110,10 +98,10 @@ class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
     return !this.state.keyboardOpen && (
       <FooterContainer>
         <FooterTabContainer>
-          {this.renderToolbarItem('Home')}
-          {this.renderToolbarItem('Profile')}
-          {this.renderToolbarItem('Messages')}
-          {this.renderToolbarItem('asdasd')}
+          {this.renderToolbarItem('Home', this.goToPath(paths.HOME))}
+          {this.renderToolbarItem('Users', this.goToPath(paths.USERS))}
+          {this.renderToolbarItem('Chats', this.goToPath(paths.CHATS))}
+          {this.renderToolbarItem('Profile', this.goToPath(paths.PROFILE))}
         </FooterTabContainer>
       </FooterContainer>
     );

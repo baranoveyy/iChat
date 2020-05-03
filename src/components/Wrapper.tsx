@@ -12,11 +12,12 @@ const FieldRow = styled<{ width?: string, error }>(View)`
   ${(props) => `
     width: ${props.width || '100%'};
   `};
+
+  height: 80px;
 `;
 
 const FieldTitle = styled(TranslatedTextContainer)`
-  margin: 5px 0;
-
+margin-bottom: 5px;
   ${font('13px', FONT_WEIGHTS.BOLD)};
   color: ${color.black};
   line-height: 15px;
@@ -31,7 +32,7 @@ const ErrorMessage = styled(TranslatedTextContainer)`
 `;
 
 const ErrorContainer = styled(View)`
-  margin: 6px 0;
+  margin: 0;
 `;
 
 export interface WrapperProps {

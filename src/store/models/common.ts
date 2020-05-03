@@ -1,11 +1,8 @@
 interface Common {
-  language?: string;
+  language: string;
   locale?: string;
   loading?: boolean;
   error?: string;
-  warning?: any; // eslint-disable-line
-  receipt?: string;
-  appInactiveSeconds?: number;
 }
 
 type CommonState = Readonly<Common>;

@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, ReactNode} from 'react';
 import {Text} from 'react-native';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 interface State {

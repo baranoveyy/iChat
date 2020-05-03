@@ -8,10 +8,7 @@ const initialState: CommonState = {
   language: LANGUAGE_KEYS.TR,
   locale: LOCALE_KEYS.tr_TR,
   loading: false,
-  error: undefined,
-  warning: undefined,
-  receipt: undefined,
-  appInactiveSeconds: undefined
+  error: undefined
 };
 
 const commonReducer: Reducer<CommonState, Action> = (
@@ -19,18 +16,6 @@ const commonReducer: Reducer<CommonState, Action> = (
   action: Action
 ) => {
   switch (action.type) {
-    case COMMON_ACTION_TYPE.TOGGLE_LANGUAGE:
-      return {
-        ...state,
-        language:
-          state.language === LANGUAGE_KEYS.TR
-            ? LANGUAGE_KEYS.EN
-            : LANGUAGE_KEYS.TR,
-        locale:
-          state.language === LANGUAGE_KEYS.TR
-            ? LOCALE_KEYS.en_EN
-            : LOCALE_KEYS.tr_TR
-      };
     case COMMON_ACTION_TYPE.SHOW_LOADING: {
       return {
         ...state,

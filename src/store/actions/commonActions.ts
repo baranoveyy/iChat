@@ -1,7 +1,6 @@
 import { ActionCreator } from '../models/action';
 
 export enum COMMON_ACTION_TYPE {
-  TOGGLE_LANGUAGE = '@@common/TOGGLE_LANGUAGE',
   SHOW_LOADING = '@@common/SHOW_LOADING',
   HIDE_LOADING = '@@common/HIDE_LOADING',
   new = '@@common/new',
@@ -11,11 +10,6 @@ const a = () => new Promise((resolve) => {
   setTimeout(() => {
     resolve()
   }, 5000);
-});
-
-export const toggleLanguage: ActionCreator = () => ({
-  type: COMMON_ACTION_TYPE.TOGGLE_LANGUAGE,
-  payload: 100
 });
 
 export const showLoading: ActionCreator = (actionType) => ({

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-// import { API, graphqlOperation } from 'aws-amplify';
+import { useDispatch } from 'react-redux';
 
 import { color } from '../common/constants';
 
@@ -10,9 +10,8 @@ import Button from '../components/button/Button';
 import TextField from '../components/text-field/TextField';
 import Screen from '../components/Screen';
 
-// import paths from '../routes/paths';
-// import { createUser } from '../graphql/mutations';
-// import { login } from '../store/actions/authActions';
+import paths from '../routes/paths';
+import { signIn } from '../store/actions/authActions';
 
 const ButtonContainer = styled(View)`
   flex-direction: row;
@@ -27,38 +26,27 @@ const ButtonContainer = styled(View)`
 `;
 
 const SignIn = (props) => {
-  const { register, setValue, handleSubmit, errors } = useForm();
-  // const dispatch = useDispatch();
+  const { register, setValue, handleSubmit, errors, setError } = useForm();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dispatch = useDispatch<any>();
 
-  // useEffect(() => {
-  //   window.console.log('SignIn', getValues());
-  // });
+  const onSubmit = async (form) => {
+    window.console.log('signIn form', form);
 
-  const onSubmit = async (formData) => {
-    window.console.log(formData);
-
-    // dispatch(login(formData.email, formData.password)).then(async (response) => {
-    //   window.console.log(response);
-    //   if (!response.error) {
-    //     if (response.payload.challengeName === 'NEW_PASSWORD_REQUIRED') {
-    //       props.history.push(paths.CHANGE_PASSWORD, { user: response.payload });
-    //     } else {
-    //       try {
-    //         const newUser = await API.graphql(
-    //           graphqlOperation(createUser, {
-    //             input: { userName: formData.email }
-    //           })
-    //         );
-    //         window.console.log(newUser);
-    //       } catch (err) {
-    //         window.console.log('newUser Error', err);
-    //       }
-    //       props.history.push(paths.HOME, { reset: true });
-    //     }
-    //   } else {
-    //     setError('asd', response.payload.code, response.payload.message);
-    //   }
-    // });
+    dispatch(signIn(form.email, form.password)).then(async (response) => {
+      window.console.log(response);
+      if (!response.error) {
+        if (response.payload.challengeName === 'NEW_PASSWORD_REQUIRED') {
+          props.history.push(paths.CHANGE_PASSWORD, { user: response.payload });
+        } else {
+          // dispatch(setUser(response.payload.attributes.name)).then((response) => {
+          //   window.console.log('setUser response', response);
+          // })
+        }
+      } else {
+        setError('signInError', response.error.code, response.error.message);
+      }
+    });
   };
 
   const onChangeField = (field) => (text) => {
@@ -95,7 +83,7 @@ const SignIn = (props) => {
           width="45%"
         />
       </ButtonContainer>
-      {errors.asd && <Text>{errors.asd.message}</Text>}
+      {errors.signInError && <Text>{errors.signInError.message}</Text>}
     </Screen>
   );
 };

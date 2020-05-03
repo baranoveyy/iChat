@@ -1,8 +1,8 @@
-import React, { useRef, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
+import { useSelector } from 'react-redux';
 import {
   View,
   Text,
-  ScrollView,
   ViewProps,
   KeyboardAvoidingView,
   TouchableOpacity,
@@ -14,9 +14,12 @@ import { isIos } from '../common/utils/platformUtil';
 import { color } from '../common/constants';
 
 import Header, { HeaderProps } from './header/Header';
+import Loading from './loading/Loading';
+import Toolbar from './toolbar/Toolbar';
+
+import { RootState } from '../store/reducers/rootReducer';
 
 const isDevMenuVisible = false; // to open DevMenu, make it true
-const SCROLL_THROTTLE = 16;
 
 const ScreenContainer = styled<{ backgroundColor?: string }>(View)`
   flex: 1;
@@ -35,13 +38,6 @@ const ScreenWrapper = styled<ViewProps>(({ ...rest }) =>
     <View {...rest} />
   )
 )`
-  flex: 1;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`;
-
-const ScreenContent = styled(ScrollView)`
   flex: 1;
   flex-direction: column;
   width: 100%;
@@ -130,10 +126,11 @@ const RenderDevMenu = () => {
 };
 
 const Screen = (props: ScreenProps) => {
-  const screenContentRef = useRef<ScrollView>();
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   return (
     <ScreenContainer backgroundColor={props.backgroundColor}>
+      <Loading />
       <Header
         displayBackButton={props.displayBackButton}
         displayRightButton={props.displayRightButton}
@@ -142,21 +139,14 @@ const Screen = (props: ScreenProps) => {
         rightButton={props.rightButton}
         secondRightButton={props.secondRightButton}
         navbarTitle={props.navbarTitle || ''}
-        testID={`${props.testID}_header`}
         screenType={props.screenType}
-        hideNotificationButton={props.hideNotificationButton}
+        hideCustomNavbar={props.hideCustomNavbar}
         history={props.history}
       />
       <ScreenWrapper>
-        <ScreenContent
-          bounces={false}
-          contentContainerStyle={{ flexGrow: 1 }}
-          ref={screenContentRef}
-          scrollEventThrottle={SCROLL_THROTTLE}
-        >
-          <ScreenContentWrapper disablePadding={props.disablePadding} >{props.children}</ScreenContentWrapper>
-        </ScreenContent>
+        <ScreenContentWrapper disablePadding={props.disablePadding} >{props.children}</ScreenContentWrapper>
       </ScreenWrapper>
+      {isLoggedIn && <Toolbar />}
       <RenderDevMenu />
     </ScreenContainer>
   );

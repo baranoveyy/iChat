@@ -16,7 +16,7 @@ export const color = {
   cloudyBlue: '#9cbde4',
   menuBorderline: '#c4dbf3',
 
-  lightSage: 'e5f2cc',
+  lightSage: '#e5f2cc',
   darkLimeGreen: '#7ebc00',
   darkLimeDarkerGreen: '#6fb30e',
 
@@ -71,41 +71,5 @@ export const MASK_SYMBOL = '•';
 export const THREE_DOT = '...';
 export const PERCENT_SYMBOL = '%';
 
-export enum DATEPICKER_MODE {
-  DATE = 'date',
-  DATETIME = 'datetime',
-  TIME = 'time'
-}
-
-export const DATE_FORMATS = {
-  date: 'DD/MM/YYYY',
-  datetime: 'HH:mm DD/MM/YYYY',
-  time: 'HH:mm',
-  serviceDate: 'YYYY-MM-DD',
-  datetimeSeconds: 'DD/MM/YYYY HH:mm:ss'
-};
-
-export const DAYS_OF_WEEK = {
-  ALL: 'ALL',
-  MONDAY: 'MONDAY',
-  TUESDAY: 'TUESDAY',
-  WEDNESDAY: 'WEDNESDAY',
-  THURSDAY: 'THURSDAY',
-  FRIDAY: 'FRIDAY',
-  SATURDAY: 'SATURDAY',
-  SUNDAY: 'SUNDAY'
-};
-
-export const DATEPCIKER_TYPE = {
-  date: 'date',
-  datetime: 'datetime',
-  time: 'time'
-};
-
 export const DEFAULT_WIDTH = '100%';
 export const DEFAULT_HEIGHT = '44px';
-
-export const LENGTHS = {
-  AMOUNT_LEFT_INPUT: 6,
-  AMOUNT_RIGHT_INPUT: 2
-};

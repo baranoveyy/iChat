@@ -1,44 +1,56 @@
-import { Auth } from 'aws-amplify';
+import {Auth, API, graphqlOperation} from 'aws-amplify';
 
-import { User } from '../models/auth';
-// import { listUsers, listEvents } from '../../graphql/queries';
+import {ActionCreator} from '../models/action';
+import {listUsers} from '../../graphql/queries';
+import {createUser} from '../../graphql/mutations';
 
 export enum AUTH_ACTION_TYPE {
-  LOGIN = '@@auth/LOGIN',
-  LOGOUT = '@@auth/LOGOUT',
+  SIGN_IN = '@@auth/SIGN_IN',
+  SIGN_UP = '@@auth/SIGN_UP',
+  SIGN_OUT = '@@auth/SIGN_OUT',
   SET_LOGGED_IN = '@@auth/SET_LOGGED_IN',
-  SET_USER = '@@auth/SET_USER',
+  CREATE_USER = '@@auth/CREATE_USER',
+  SET_CURRENT_USER = '@@auth/SET_CURRENT_USER',
   GET_CURRENT_AUTHENTICATED_USER = '@@auth/GET_CURRENT_AUTHENTICATED_USER',
-  QUERY_LIST_USERS = '@@auth/QUERY_LIST_USERS',
-  QUERY_LIST_EVENTS = '@@auth/QUERY_LIST_EVENTS',
+  GET_USERS = '@@auth/GET_USERS',
 }
 
-export const login = (email, password) => ({
-  type: AUTH_ACTION_TYPE.LOGIN,
+export const signIn: ActionCreator = (email, password) => ({
+  type: AUTH_ACTION_TYPE.SIGN_IN,
   payload: Auth.signIn(email, password)
 });
 
-export const setLoggedIn = (isLoggedIn) => ({
+export const signUp: ActionCreator = (username, password, attributes) => ({
+  type: AUTH_ACTION_TYPE.SIGN_UP,
+  payload: Auth.signUp({username, password, attributes})
+});
+
+export const setLoggedIn: ActionCreator = (isLoggedIn) => ({
   type: AUTH_ACTION_TYPE.SET_LOGGED_IN,
   payload: isLoggedIn
 });
 
-export const logout = () => ({
-  type: AUTH_ACTION_TYPE.LOGOUT,
+export const logout: ActionCreator = () => ({
+  type: AUTH_ACTION_TYPE.SIGN_OUT,
   payload: Auth.signOut()
 });
 
-export const setUser = (user: User) => ({
-  type: AUTH_ACTION_TYPE.SET_USER,
+export const createUserAction: ActionCreator = (username) => ({
+  type: AUTH_ACTION_TYPE.CREATE_USER,
+  payload: API.graphql(graphqlOperation(createUser, {input: {username}}))
+});
+
+export const setCurrentUser: ActionCreator = (user) => ({
+  type: AUTH_ACTION_TYPE.SET_CURRENT_USER,
   payload: user
 });
 
-// export const queryListUser = () => ({
-//   type: AUTH_ACTION_TYPE.QUERY_LIST_USERS,
-//   payload: API.graphql(graphqlOperation(listUsers))
-// });
+export const getCurrentAuthenticatedUser: ActionCreator = () => ({
+  type: AUTH_ACTION_TYPE.GET_CURRENT_AUTHENTICATED_USER,
+  payload: Auth.currentAuthenticatedUser()
+});
 
-// export const queryListEvents = () => ({
-//   type: AUTH_ACTION_TYPE.QUERY_LIST_EVENTS,
-//   payload: API.graphql(graphqlOperation(listEvents))
-// });
+export const getUsers: ActionCreator = () => ({
+  type: AUTH_ACTION_TYPE.GET_USERS,
+  payload: API.graphql(graphqlOperation(listUsers))
+});

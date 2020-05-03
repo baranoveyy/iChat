@@ -1,10 +1,11 @@
 import React from 'react';
-import { Image, View, ImageSourcePropType } from 'react-native';
+import { View } from 'react-native';
 import { Button } from 'native-base';
 import styled from 'styled-components';
 
 import {color} from '../../common/constants';
-import { font, FONT_SIZE } from '../../common/font';
+import { font } from '../../common/font';
+
 import TranslatedTextContainer from '../translated-text/TranslatedTextContainer';
 
 const FooterButton = styled(Button)`
@@ -15,28 +16,13 @@ const FooterButton = styled(Button)`
   justify-content: flex-start;
 `;
 
-interface ButtonImageProps {
-  primary?: boolean;
-}
-
-const ButtonImage = styled<ButtonImageProps>(Image)`
-  margin-top: 12px;
-  ${(props) => ({
-    'margin-bottom': props.primary ? '4px' : 0,
-    'width': props.primary ? '18px' : '22px',
-    'height': props.primary ? '18px' : '22px',
-    'top': props.primary ? '-20px' : 0
-  })};
-`;
-
 const ButtonText = styled<{ active?: boolean }>(TranslatedTextContainer)`
-  padding: 0;
-  margin-top: 6px;
+  padding: 10px;
   background-color: transparent;
 
   letter-spacing: 0.5px;
-  color: ${(props) => (props.active ? color.oceanBlue : color.darkGrey)};
-  ${font(FONT_SIZE.TEN)};
+  color: ${({active}) => (active ? color.oceanBlue : color.darkGrey)};
+  ${font('20px')};
 `;
 
 const ActiveIndicator = styled(View)`
@@ -51,36 +37,15 @@ const ActiveIndicator = styled(View)`
   shadow-offset: 5px 5px;
 `;
 
-// TODO: (sarioglum) Android clips overflow, find solution
-const Diamond = styled(View)`
-  position: absolute;
-  top: -16px;
-  width: 40px;
-  height: 40px;
-  background-color: ${color.oceanBlue};
-  border-radius: 2px;
-  transform: rotate(45deg);
-
-  shadow-opacity: 0.3;
-  shadow-radius: 15px;
-  shadow-color: ${color.oceanBlue};
-  shadow-offset: 5px 5px;
-`;
-
 interface ToolbarItemProps {
   label: string;
-  icon: ImageSourcePropType;
-  activeIcon: ImageSourcePropType;
-  onPress?(): void;
+  onPress(): void;
   active?: boolean;
-  primary?: boolean;
 }
 
-const ToolbarItem = ({onPress, active, primary, activeIcon, icon, label}: ToolbarItemProps) => (
+const ToolbarItem = ({onPress, active, label}: ToolbarItemProps) => (
   <FooterButton onPress={onPress}>
     {active && <ActiveIndicator />}
-    {primary && <Diamond />}
-    <ButtonImage source={active && !primary ? activeIcon : icon} primary={primary} />
     <ButtonText label={label} active={active} />
   </FooterButton>
 );

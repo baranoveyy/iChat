@@ -7,9 +7,13 @@ import AuthScreen from '../screens/Auth';
 import SignUp from '../screens/SignUp';
 import SignIn from '../screens/SignIn';
 import ChangePassword from '../screens/ChangePassword';
+import Users from '../screens/Users';
+import Chat from '../screens/Chat';
+import Chats from '../screens/Chats';
 
 import paths from './paths';
 import withRouter from './withRouter';
+import Profile from '../screens/Profile';
 
 const onBackAndroid = () => {
   // Return true to stay, or return false to exit the app.
@@ -50,6 +54,26 @@ const Routes = () => (
       <Scene
         key={paths.HOME}
         component={withRouter(Home)}
+        hideNavBar
+      />
+      <Scene
+        key={paths.PROFILE}
+        component={withRouter(Profile)}
+        hideNavBar
+      />
+      <Scene
+        key={paths.USERS}
+        component={withRouter(Users)}
+        hideNavBar
+      />
+      <Scene
+        key={paths.CHATS}
+        component={withRouter(Chats)}
+        hideNavBar
+      />
+      <Scene
+        key={paths.CHAT}
+        component={withRouter(Chat)}
         hideNavBar
       />
     </Stack>

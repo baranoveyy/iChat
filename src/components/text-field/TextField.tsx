@@ -28,7 +28,6 @@ const StyledTextInput = styled(TextInput)`
 
 const TextInputInnerView = styled(View)`
   flex-direction: row;
-  flex: 1;
   align-items: center;
 
   padding: 2px;
@@ -40,27 +39,17 @@ const IconWrapper = styled(View)`
 `;
 
 interface TextFieldProps extends TextInputProps {
-  label: string;
+  label?: string;
   icon?: ReactNode;
   placeholder?: string;
   value?: string;
-  testID?: string;
-  editable?: boolean;
-  initialValue?: string;
-  autoComplete?: 'on' | 'off' | 'new-password';
   width?: string;
   wrapperWidth?: string;
   height?: string;
   isRequired?: boolean;
   isHideErrorMessage?: boolean;
-  maxLength?: number;
-  currency?: string;
   keyboardType?: KeyboardTypeOptions;
   returnKeyType?: ReturnKeyTypeOptions;
-  textAlignRight?: boolean;
-  multiline?: boolean;
-  autoFocus?: boolean;
-  onFocused?: boolean;
   ref?;
   error?: FieldError;
 }
