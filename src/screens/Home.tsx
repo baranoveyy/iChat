@@ -55,13 +55,11 @@ const Home = () => {
     let subscription;
     if (currentUser) {
       if (!convoLinks) {
-        window.console.log('getConvoLinks', convoLinks);
         dispatch(getConvoLinks(currentUser.id));
       }
 
-      window.console.log('useEffect next currentUser', currentUser);
       const next = (nextOnCreateConvoLink) => {
-        window.console.log('next', nextOnCreateConvoLink);
+        window.console.log('nextOnCreateConvoLink', nextOnCreateConvoLink);
         dispatch(
           setConvoLinks([
             ...(convoLinks || []),

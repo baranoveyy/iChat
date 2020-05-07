@@ -26,12 +26,10 @@ const Auth = ({history}) => {
   }, []);
 
   const signUp = () => {
-    window.console.log('signUPPPPPPP');
     history.push(paths.SIGN_UP);
   };
 
   const signIn = () => {
-    window.console.log('SIGNINNNNN');
     history.push(paths.SIGN_IN);
   };
 

@@ -11,15 +11,11 @@ const awsReducer: Reducer<AwsState, Action> = (
 ): AwsState => {
   switch (action.type) {
     case AWS_ACTION_TYPE.GET_CONVO_LINKS:
-      window.console.log('GET_CONVO_LINKS', action);
-
       return {
         ...state,
         convoLinks: action.payload?.data?.listConvoLinks.items
       };
     case AWS_ACTION_TYPE.SET_CONVO_LINKS:
-      window.console.log('SET_CONVO_LINKS', action);
-
       return {
         ...state,
         convoLinks: action.payload

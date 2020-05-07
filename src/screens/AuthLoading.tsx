@@ -20,8 +20,6 @@ const AuthLoading = (props) => {
 
   useEffect(() => {
     const hubListener = (data) => {
-      window.console.log('Hub.listen', data.payload);
-
       switch (data.payload.event) {
         case 'signIn':
           props.history.push(paths.HOME, {reset: true});

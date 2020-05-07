@@ -75,7 +75,6 @@ const Chat = ({location}) => {
     dispatch(
       getConversationAction(location.state.convoLink.conversation.id)
     ).then((response) => {
-      window.console.log('response', response);
       if (!response.error) {
         setConversation(response.payload.data.getConversation);
       }
@@ -83,14 +82,10 @@ const Chat = ({location}) => {
   }, []);
 
   useEffect(() => {
-    window.console.log('SUBSCRIBEEEEEEE');
-    window.console.log('conversation', conversation);
-    window.console.log('location', location);
-    window.console.log('iddddd', location?.state.convoLink.conversation.id);
     ref.current?.scrollToEnd();
 
     const next = (nextOnCreateMessage) => {
-      window.console.log('next', nextOnCreateMessage);
+      window.console.log('nextOnCreateMessage', nextOnCreateMessage);
       setConversation({
         ...conversation,
         messages: {
@@ -121,17 +116,21 @@ const Chat = ({location}) => {
 
   const sendMessage = async (event) => {
     setMessage('');
-    const result = await API.graphql(
-      graphqlOperation(createMessage, {
-        input: {
-          content: event.nativeEvent.text,
-          messageConversationId: conversation.id,
-          authorId: currentUser.id
-        }
-      })
-    );
+    try {
+      const result = await API.graphql(
+        graphqlOperation(createMessage, {
+          input: {
+            content: event.nativeEvent.text,
+            messageConversationId: conversation.id,
+            authorId: currentUser.id
+          }
+        })
+      );
 
-    window.console.log('sendMessage', result);
+      window.console.log('sendMessage', result);
+    } catch (error) {
+      window.console.log('sendMessage error', error);
+    }
   };
 
   return (

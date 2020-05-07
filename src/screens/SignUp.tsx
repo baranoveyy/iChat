@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useForm} from 'react-hook-form';
 import {Auth} from 'aws-amplify';
@@ -17,7 +17,6 @@ const SignUp = ({history}) => {
   const dispatch = useDispatch<any>();
 
   const onSubmit = async (formData) => {
-    window.console.log('formData', formData);
     try {
       if (confirmSignUp) {
         dispatch(showLoading());
@@ -29,52 +28,35 @@ const SignUp = ({history}) => {
             window.console.log(data);
 
             dispatch(signIn(formData.email, formData.password)).then(async (response) => {
-              window.console.log(response);
               if (!response.error) {
                 if (response.payload.challengeName === 'NEW_PASSWORD_REQUIRED') {
                   history.push(paths.CHANGE_PASSWORD, { user: response.payload });
                 } else {
-                  dispatch(createUserAction(formData.userName)).then((response) => {
-                    window.console.log('createUserAction response', response);
-                  })
+                  dispatch(createUserAction(formData.userName));
                 }
               } else {
                 setError('signInError', response.payload.code, response.payload.message);
               }
             });
-
-            // Actions.push(paths.SIGN_IN);
           })
           .catch((err) => {
             window.console.log(err);
-            // errors.confirmCode = err.message;
             setError('confirmCode', err.code, err.message);
           });
         dispatch(hideLoading());
       } else {
-        // const signUpResult = await Auth.signUp({
-        //   username: formData.email,
-        //   password: formData.password,
-        //   attributes: { email: formData.email, name: formData.userName }
-        // });
         dispatch(
           signUp(formData.email, formData.password, {
             email: formData.email,
             name: formData.userName
           })
-        ).then((response) => {
-          window.console.log('signUpResult', response);
-        });
+        );
         setConfirm(true);
       }
     } catch (error) {
       window.console.log('signUpResult error', error);
     }
   };
-
-  useEffect(() => {
-    //
-  });
 
   const onChangeField = (field) => (text) => {
     setValue(field, text, true);

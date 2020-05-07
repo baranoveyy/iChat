@@ -52,7 +52,6 @@ export const HeaderRightButton = (props) => (
 
 const Header = (props: HeaderProps) => {
   const defaultBackButtonAction = () => {
-    window.console.log(props.history);
     props.history?.goBack();
   };
 

@@ -30,17 +30,10 @@ const SignIn = (props) => {
   const dispatch = useDispatch<any>();
 
   const onSubmit = async (form) => {
-    window.console.log('signIn form', form);
-
     dispatch(signIn(form.email, form.password)).then(async (response) => {
-      window.console.log(response);
       if (!response.error) {
         if (response.payload.challengeName === 'NEW_PASSWORD_REQUIRED') {
           props.history.push(paths.CHANGE_PASSWORD, { user: response.payload });
-        } else {
-          // dispatch(setUser(response.payload.attributes.name)).then((response) => {
-          //   window.console.log('setUser response', response);
-          // })
         }
       } else {
         setError('signInError', response.error.code, response.error.message);

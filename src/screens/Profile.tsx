@@ -19,10 +19,6 @@ const Container = styled(View)`
 const Profile = ({history}) => {
   const dispatch = useDispatch<any>();
   const {cognitoUser} = useSelector((state: RootState) => state.auth)
-  window.console.log('cognitoUser', cognitoUser);
-  useEffect(() => {
-    // Storage.get('123456.txt')
-  }, []);
 
   const signOut = () => {
     dispatch(logout()).then(() => {

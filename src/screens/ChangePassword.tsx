@@ -14,8 +14,6 @@ const ChangePassword = (props) => {
   const { user } = props.location.state;
 
   const onSubmit = (formData) => {
-    window.console.log('formData',formData);
-
     Auth.completeNewPassword(
       user, // the Cognito User Object
       formData.newPassword, // the new password
@@ -38,8 +36,6 @@ const ChangePassword = (props) => {
   };
 
   const onChange = (field) => onChangeField(field);
-
-  window.console.log(props);
 
   return (
     <Screen history={props.history}>

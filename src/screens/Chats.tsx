@@ -39,8 +39,6 @@ const Chats = ({history}) => {
     <Screen navbarTitle="CHATS">
       <Container>
         {convoLinks?.map((convoLink,index) => {
-          window.console.log(convoLink);
-
           const onPress = () => {
             history.push(paths.CHAT, {convoLink})
           };

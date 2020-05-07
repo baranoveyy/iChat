@@ -56,16 +56,12 @@ const Users = ({history}) => {
             const members = [user.username, currentUser.username];
 
             const onPress = async () => {
-              window.console.log('sadasdasdasdas', members);
               dispatch(showLoading());
               try {
                 const name = members.join(' and ');
-                window.console.log('convoLinks', convoLinks);
                 const convoLink = convoLinks?.find(
                   (convoLink) => convoLink.conversation.members.includes(user.username)
                 );
-
-                window.console.log('FIND RESULT: ', convoLink);
 
                 if (convoLink) {
                   history.push(paths.CHAT, {convoLink});
@@ -79,22 +75,22 @@ const Users = ({history}) => {
 
                   const id = newConversation.data.createConversation.id;
 
-                  const relation1 = {
+                  const senderConvoLinkInput = {
                     convoLinkUserId: currentUser.id,
                     convoLinkConversationId: id
                   };
-                  const relation2 = {
+                  const recevierConvolinkInput = {
                     convoLinkUserId: user.id,
                     convoLinkConversationId: id
                   };
                   const senderConvoLink = await API.graphql(
-                    graphqlOperation(createConvoLink, {input: relation1})
+                    graphqlOperation(createConvoLink, {input: senderConvoLinkInput})
                   );
-                  window.console.log('r1', senderConvoLink);
+                  window.console.log('senderConvoLink', senderConvoLink);
                   const recevierConvolink = await API.graphql(
-                    graphqlOperation(createConvoLink, {input: relation2})
+                    graphqlOperation(createConvoLink, {input: recevierConvolinkInput})
                   );
-                  window.console.log('r2', recevierConvolink);
+                  window.console.log('recevierConvolink', recevierConvolink);
 
                   history.push(paths.CHAT, {convoLink: senderConvoLink.data.createConvoLink});
                 }
