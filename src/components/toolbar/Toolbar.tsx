@@ -68,20 +68,6 @@ class Toolbar extends Component<{ history: MemoryHistory}, ToolbarState> {
     );
   }
 
-  // componentDidUpdate(prevProps: ToolbarProps) {
-  //   if (this.props.prevSelectedIndex && prevProps.prevSelectedIndex
-  //     && this.props.selectedIndex === this.props.prevSelectedIndex &&
-  //     this.state.isMenuItemSelected) {
-  //     this.setState({ isMenuItemSelected: false });
-  //   }
-  // }
-
-  // handleMenuSelect = (path: string, index: number) => {
-  //   this.props.history.push(path, {isMenuPush: true});
-  //   this.props.toolbarChangePrevSelectedIndex(this.props.selectedIndex);
-  //   this.props.toolbarChangeSelectedIndex(index);
-  // }
-
   goToPath = (path) => () => {
     this.props.history.push(path, {isMenuPush: true});
   }

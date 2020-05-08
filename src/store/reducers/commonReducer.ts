@@ -29,7 +29,7 @@ const commonReducer: Reducer<CommonState, Action> = (
       };
 
     default: {
-      return state;
+      return {...state, error: action.error};
     }
   }
 };

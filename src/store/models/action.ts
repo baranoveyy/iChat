@@ -13,7 +13,7 @@ type Meta = any;
 export interface StandardAction<Payload, Meta = undefined> {
   type: string;
   payload?: Payload;
-  error?: boolean;
+  error?: any;
   meta?: Meta;
 }
 

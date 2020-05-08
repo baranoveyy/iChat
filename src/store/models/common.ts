@@ -2,7 +2,7 @@ interface Common {
   language: string;
   locale?: string;
   loading?: boolean;
-  error?: string;
+  error?: any;
 }
 
 type CommonState = Readonly<Common>;

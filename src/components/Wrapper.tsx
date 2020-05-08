@@ -16,7 +16,7 @@ const FieldRow = styled<{ width?: string, error }>(View)`
 `;
 
 const FieldTitle = styled(TranslatedTextContainer)`
-margin-bottom: 5px;
+  margin-bottom: 5px;
   font-size: 13px;
   color: ${color.black};
   line-height: 15px;

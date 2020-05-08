@@ -126,7 +126,9 @@ const RenderDevMenu = () => {
 };
 
 const Screen = (props: ScreenProps) => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn, shallowEqual);
+  const {isLoggedIn} = useSelector((state: RootState) => state.auth, shallowEqual);
+  const {error} = useSelector((state: RootState) => state.common, shallowEqual);
+  window.console.log(error);
 
   return (
     <ScreenContainer backgroundColor={props.backgroundColor}>
@@ -147,6 +149,7 @@ const Screen = (props: ScreenProps) => {
         <ScreenContentWrapper disablePadding={props.disablePadding} >{props.children}</ScreenContentWrapper>
       </ScreenWrapper>
       {isLoggedIn && <Toolbar />}
+      {error && <Text>ERORORORORORORORORO</Text>}
       <RenderDevMenu />
     </ScreenContainer>
   );

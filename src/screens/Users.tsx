@@ -47,7 +47,7 @@ const Users = ({history}) => {
             const onPress = async () => {
               dispatch(showLoading());
               try {
-                const name = members.join(' and ');
+                const name = members.join(' & ');
                 const convoLink = convoLinks?.find(
                   (convoLink) => convoLink.conversation.members.includes(user.username)
                 );
