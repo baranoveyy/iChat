@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {Text, View} from 'react-native';
 import styled from 'styled-components';
 
@@ -18,7 +18,7 @@ const Container = styled(View)`
 
 const Profile = ({history}) => {
   const dispatch = useDispatch<any>();
-  const {cognitoUser} = useSelector((state: RootState) => state.auth)
+  const {cognitoUser} = useSelector((state: RootState) => state.auth, shallowEqual)
 
   const signOut = () => {
     dispatch(logout()).then(() => {

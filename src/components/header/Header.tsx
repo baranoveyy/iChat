@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StatusBar, Image, TouchableOpacity} from 'react-native';
+import {View, StatusBar, Image} from 'react-native';
 import styled from 'styled-components';
 import {Left, Right, Body} from 'native-base';
 import {MemoryHistory} from 'history';
@@ -28,7 +28,8 @@ export interface HeaderProps {
 const HeaderContainer = styled(View)`
   z-index: 2;
   background-color: ${color.white3};
-  padding: 20px 0px 0px;
+  padding: 20px 0px 5px;
+  border-bottom-width: 1px;
 `;
 
 const DashboardHeaderContainer = styled(View)`
@@ -36,19 +37,6 @@ const DashboardHeaderContainer = styled(View)`
   align-items: center;
   justify-content: space-between;
 `;
-
-const IconContainer = styled(TouchableOpacity)`
-  width: 32px;
-  height: 32px;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const HeaderRightButton = (props) => (
-  <IconContainer onPress={props.onPress}>
-    <Image source={props.iconSource} />
-  </IconContainer>
-);
 
 const Header = (props: HeaderProps) => {
   const defaultBackButtonAction = () => {

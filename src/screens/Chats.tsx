@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import {Text, View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
 
@@ -14,22 +14,21 @@ const Container = styled(View)`
 `;
 
 const Chat = styled(TouchableOpacity)`
-  display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: baseline;
   width: 100%;
   height: 60px;
   background-color: ${color.cloudyBlue};
+  border: 1px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ChatName = styled(Text)`
-  width: 100%;
-  height: 100%;
 `;
 
 const Chats = ({history}) => {
-  const {convoLinks} = useSelector((state: RootState) => state.aws);
+  const {convoLinks} = useSelector((state: RootState) => state.aws, shallowEqual);
 
   useEffect(() => {
     // dispatch(getConvoLinks(currentUser.id))

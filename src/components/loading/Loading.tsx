@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import LottieView from 'lottie-react-native';
 import styled from 'styled-components';
 
@@ -23,7 +23,7 @@ const Lottie = styled(LottieView)`
 `;
 
 const Loading = () => {
-  const loading = useSelector((state: RootState) => state.common.loading);
+  const loading = useSelector((state: RootState) => state.common.loading, shallowEqual);
 
   return loading ? (
     <LoadingView>

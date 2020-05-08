@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {Text, View, ScrollView} from 'react-native';
 import styled from 'styled-components';
 
@@ -65,7 +65,10 @@ const MessageInput = styled(TextField)``;
 
 const Chat = ({location}) => {
   const dispatch = useDispatch<any>();
-  const {currentUser} = useSelector((state: RootState) => state.auth);
+  const {currentUser} = useSelector(
+    (state: RootState) => state.auth,
+    shallowEqual
+  );
   const [conversation, setConversation] = useState<any>();
   const [message, setMessage] = useState('');
   const ref = useRef<ScrollView>();

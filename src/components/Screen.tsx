@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import {
   View,
   Text,
@@ -126,7 +126,7 @@ const RenderDevMenu = () => {
 };
 
 const Screen = (props: ScreenProps) => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn, shallowEqual);
 
   return (
     <ScreenContainer backgroundColor={props.backgroundColor}>

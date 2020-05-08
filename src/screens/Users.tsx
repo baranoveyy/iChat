@@ -1,14 +1,14 @@
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {Text, View} from 'react-native';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import {Text, View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
+import {API, graphqlOperation} from 'aws-amplify';
+
+import {color} from '../common/constants';
 
 import Screen from '../components/Screen';
-import Button from '../components/button/Button';
 
 import {RootState} from '../store/reducers/rootReducer';
-import {color} from '../common/constants';
-import {API, graphqlOperation} from 'aws-amplify';
 import {
   createConversation,
   createConvoLink
@@ -20,32 +20,21 @@ const Container = styled(View)`
   flex: 1;
 `;
 
-const User = styled(View)`
-  display: flex;
+const User = styled(TouchableOpacity)`
   flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
   width: 100%;
   height: 60px;
   background-color: ${color.cloudyBlue};
-`;
-
-const UserName = styled(Text)`
-  width: 50%;
-`;
-
-const PlusButton = styled(Button)`
-  width: 20%;
+  border: 1px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Users = ({history}) => {
   const dispatch = useDispatch<any>();
-  const {users, currentUser} = useSelector((state: RootState) => state.auth);
-  const {convoLinks} = useSelector((state: RootState) => state.aws);
-
-  // useEffect(() => {
-  //   dispatch(getConversations());
-  // }, []);
+  const {users, currentUser} = useSelector((state: RootState) => state.auth, shallowEqual);
+  const {convoLinks} = useSelector((state: RootState) => state.aws, shallowEqual);
 
   return (
     <Screen navbarTitle="USERS">
@@ -104,9 +93,8 @@ const Users = ({history}) => {
             };
 
             return (
-              <User key={index}>
-                <UserName>{user.username}</UserName>
-                <PlusButton label="+" onPress={onPress} />
+              <User key={index} onPress={onPress}>
+                <Text>{user.username}</Text>
               </User>
             );
           })}

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {Text, View} from 'react-native';
 import styled from 'styled-components';
 
@@ -24,9 +24,13 @@ const Container = styled(View)`
 const Home = () => {
   const dispatch = useDispatch<any>();
   const {currentUser, cognitoUser, users} = useSelector(
-    (state: RootState) => state.auth
+    (state: RootState) => state.auth,
+    shallowEqual
   );
-  const {convoLinks} = useSelector((state: RootState) => state.aws);
+  const {convoLinks} = useSelector(
+    (state: RootState) => state.aws,
+    shallowEqual
+  );
 
   useEffect(() => {
     if (!users) {
